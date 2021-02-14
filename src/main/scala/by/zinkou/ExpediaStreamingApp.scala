@@ -7,6 +7,7 @@ import org.apache.spark.sql.streaming.OutputMode
 import by.zinkou.util.HelpfulFunctions.{buildResultRow, typeCheckUDF}
 import by.zinkou.util.PropertiesUtil._
 import by.zinkou.util.Schemas.{expediaSchema, hotelsSchema}
+import org.elasticsearch.spark.sql.sparkDatasetFunctions
 
 object ExpediaStreamingApp {
 
@@ -15,8 +16,10 @@ object ExpediaStreamingApp {
 
     val spark = SparkSession.builder()
       .master("local[1]")
-      .appName("SparkExpediaStreamApp")
-      .getOrCreate();
+      .appName("WriteToES")
+      .config("spark.es.nodes","localhost")
+      .config("spark.es.port","9200")
+      .getOrCreate()
     import spark.implicits._
 
     /**
@@ -76,9 +79,8 @@ object ExpediaStreamingApp {
             "long_stay_cnt",
             "most_popular_stay_type")
           .withColumn("batch_timestamp", current_timestamp())
-          .write
-          .format("avro")
-          .save(properties.getProperty(HADOOP_SAVING_FOLDER_PROPERTY_STREAM))
+          .saveToEs("hotels/hotels_index")
+
       })
       .start()
 

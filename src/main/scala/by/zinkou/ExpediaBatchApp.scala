@@ -3,7 +3,6 @@ package by.zinkou
 import by.zinkou.beans.HotelIdPairs
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-import org.example.beans.TypeCount
 import by.zinkou.util.PropertiesUtil.{HADOOP_EXPEDIA_FOLDER_PROPERTY, HADOOP_SAVING_FOLDER_PROPERTY_BATCH, KAFKA_BOOTSTRAP_SERVER_PROPERTY, KAFKA_STARTING_OFFSET_PROPERTY, KAFKA_TOPIC_PROPERTY, properties}
 import by.zinkou.util.Schemas.hotelsSchema
 import by.zinkou.util.HelpfulFunctions.{buildResultRow, typeCheckUDF}
