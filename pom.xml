@@ -76,6 +76,12 @@
       <version>0.10.1.0</version>
       <scope>provided</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/biz.paluch.logging/logstash-gelf -->
+    <dependency>
+      <groupId>biz.paluch.logging</groupId>
+      <artifactId>logstash-gelf</artifactId>
+      <version>1.14.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.spark</groupId>

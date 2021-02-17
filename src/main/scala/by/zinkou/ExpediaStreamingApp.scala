@@ -5,14 +5,19 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.OutputMode
 import by.zinkou.util.HelpfulFunctions.{buildResultRow, typeCheckUDF}
+import by.zinkou.util.Logging.createGelfLogAppender
 import by.zinkou.util.PropertiesUtil._
 import by.zinkou.util.Schemas.{expediaSchema, hotelsSchema}
+import org.apache.log4j.Logger
 import org.elasticsearch.spark.sql.sparkDatasetFunctions
 
 object ExpediaStreamingApp {
 
 
   def main(args: Array[String]): Unit = {
+
+    val rootLogger = Logger.getRootLogger
+    rootLogger.addAppender(createGelfLogAppender(host = "tcp:localhost", port = 5044))
 
     val spark = SparkSession.builder()
       .master("local[1]")
